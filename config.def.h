@@ -109,20 +109,21 @@ static const char *colorname[] = {
 	[7] = "#a1aab8",
 
 	/* 8 bright colors */
-	[8] = "#7c8f8f",
-	[9] = "#ff5189",
+	[8]  = "#7c8f8f",
+	[9]  = "#ff5189",
 	[10] = "#36c692",
 	[11] = "#bfbf97",
 	[12] = "#74b2ff",
 	[13] = "#ae81ff",
 	[14] = "#85dc85",
 	[15] = "#e2637f",
-
+	
 	[255] = 0,
 
 	/* more colors can be added after 255 to use with DefaultXX */
+
 	[256] = "#282a36",
-	[257] = "#f8f8f2",
+	[257]  = "#f8f8f2",
 	[258] = "#080808",
 	[259] = "#eeeeee",
 };
@@ -133,9 +134,16 @@ static const char *colorname[] = {
  */
 unsigned int defaultfg = 259;
 unsigned int defaultbg = 258;
-unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+unsigned int defaultcs = 257;
+static unsigned int defaultrcs = 256;
 
+/*
+ * Colors used, when the specific fg == defaultfg. So in reverse mode this
+ * will reverse too. Another logic would only make the simple feature too
+ * complex.
+ */
+unsigned int defaultitalic = 7;
+unsigned int defaultunderline = 7;
 /*
  * Default shape of cursor
  * 2: Block ("█")
@@ -173,6 +181,11 @@ static unsigned int defaultattr = 11;
 static uint forcemousemod = ShiftMask;
 
 /*
+ * Command used to query unicode glyphs.
+ */
+char *iso14755_cmd = "dmenu -w \"$WINDOWID\" -p codepoint: </dev/null";
+
+/*
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
@@ -203,6 +216,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ TERMMOD,              XK_I,           iso14755,       {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
 	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
